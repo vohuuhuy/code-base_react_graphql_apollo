@@ -1,1 +1,0 @@
-# tqc-social-front
