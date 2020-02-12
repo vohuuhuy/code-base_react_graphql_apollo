@@ -37,8 +37,12 @@ const client = new ApolloClient({
   //   addTypename: false
   // }),
   request: operation => {
-    operation.setContext({})
-    return operation
+    const token = localStorage.getItem('tokenTqcSocial')
+    operation.setContext({
+      headers: {
+        authorization: token || ''
+      }
+    })
   },
   onError: errorObj => {
     const { graphQLErrors, networkError, response, operation } = errorObj
