@@ -1,0 +1,13 @@
+body {
+  margin: 0 !important;
+  padding: 0 !important;
+  height: 100vh;
+  width: 100vw;
+  background-image: url('../images/gbw.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.page {
+  width: 100%;
+  height: 100%;
+}

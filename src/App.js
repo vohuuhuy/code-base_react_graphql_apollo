@@ -1,11 +1,13 @@
 import React from 'react'
-import ApolloClient from 'apollo-boost'
+import { ApolloClient } from 'apollo-client'
 import { ApolloProvider } from '@apollo/react-hooks'
 import { HttpLink } from 'apollo-link-http'
 import { WebSocketLink } from 'apollo-link-ws'
 import { split } from 'apollo-link'
 import { getMainDefinition } from 'apollo-utilities'
 import { httpLinkUri, wsLinkUri } from './config'
+import { setContext } from 'apollo-link-context'
+import { InMemoryCache } from 'apollo-cache-inmemory'
 import Page from './page'
 
 const httpLink = new HttpLink({
@@ -18,6 +20,16 @@ const wsLink = new WebSocketLink({
     reconnect: true
   }
 })
+
+const authLink = setContext((_, { headers }) => {
+  const token = localStorage.getItem('token');
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : "",
+    }
+  }
+});
 
 const link = split(
   ({ query }) => {
@@ -32,29 +44,8 @@ const link = split(
 )
 
 const client = new ApolloClient({
-  link: link,
-  // cache: new InMemoryCache({
-  //   addTypename: false
-  // }),
-  request: operation => {
-    const token = localStorage.getItem('tokenTqcSocial')
-    operation.setContext({
-      headers: {
-        authorization: token || ''
-      }
-    })
-  },
-  onError: errorObj => {
-    const { graphQLErrors, networkError, response, operation } = errorObj
-    console.log(graphQLErrors, networkError, response, operation)
-  },
-  clientState: {
-    resolvers: {},
-    defaults: {},
-    typeDefs: [''] || ''
-  },
-  cacheRedirects: {},
-  credentials: 'same-origin'
+  link: authLink.concat(link),
+  cache: new InMemoryCache()
 })
 
 function App() {

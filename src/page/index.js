@@ -1,8 +1,12 @@
 import React from 'react'
+import Login from './login'
+import './index.css'
 
 function Page () {
   return (
-    <div>Page</div>
+    <div className='page'>
+      <Login />
+    </div>
   )
 }
 

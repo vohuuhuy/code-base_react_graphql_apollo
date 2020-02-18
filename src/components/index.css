@@ -1,0 +1,19 @@
+.logo {
+  background-image: url('../images/lg.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.tqc-ui-btn {
+  background: #1667ca;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 17px;
+  cursor: pointer;
+}
+
+.tqc-ui-btn:active {
+  border: none;
+  transform: translate(0px, 1.5px);
+}
