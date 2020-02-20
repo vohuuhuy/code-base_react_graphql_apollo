@@ -8,6 +8,16 @@ const MUTATION_CREATEUSER = gql`
   }
 `
 
+const QUERY_LOGIN = gql`
+  query login ($username: String!, $password: String!) {
+    login (username: $username, password: $password) {
+      token
+      hasUsername
+    }
+  }
+`
+
 export {
-  MUTATION_CREATEUSER
+  MUTATION_CREATEUSER,
+  QUERY_LOGIN
 }

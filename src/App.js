@@ -1,32 +1,31 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { ApolloClient } from 'apollo-client'
 import { ApolloProvider } from '@apollo/react-hooks'
 import { HttpLink } from 'apollo-link-http'
+import { SubscriptionClient } from 'subscriptions-transport-ws'
 import { WebSocketLink } from 'apollo-link-ws'
 import { split } from 'apollo-link'
 import { getMainDefinition } from 'apollo-utilities'
 import { httpLinkUri, wsLinkUri } from './config'
 import { setContext } from 'apollo-link-context'
 import { InMemoryCache } from 'apollo-cache-inmemory'
-import Page from './page'
+import { checkTypeDevice } from './common'
+import PageDesktop from './pageDesktop'
 
 const httpLink = new HttpLink({
   uri: httpLinkUri
 })
 
-const wsLink = new WebSocketLink({
-  uri: wsLinkUri,
-  options: {
-    reconnect: true
-  }
-})
+const subscriptionClient = new SubscriptionClient(wsLinkUri, { reconnect: true })
+
+const wsLink = new WebSocketLink(subscriptionClient)
 
 const authLink = setContext((_, { headers }) => {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('tqcSocialToken');
   return {
     headers: {
       ...headers,
-      authorization: token ? `Bearer ${token}` : "",
+      authorization: token || '',
     }
   }
 });
@@ -49,11 +48,18 @@ const client = new ApolloClient({
 })
 
 function App() {
+  const [typeDevice] = useState(checkTypeDevice())
+  if (typeDevice === 'desktop') {
+    return (
+      <ApolloProvider client={client}>
+        <PageDesktop typeDevice={typeDevice} />
+      </ApolloProvider>
+    )
+  }
   return (
     <ApolloProvider client={client}>
-      <Page />
     </ApolloProvider>
-  );
+  )
 }
 
-export default App;
+export default App

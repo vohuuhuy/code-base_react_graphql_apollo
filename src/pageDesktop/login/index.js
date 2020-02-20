@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react'
 import { useMutation } from '@apollo/react-hooks'
 import { Logo, validateInput } from '../../components'
-import { MUTATION_CREATEUSER } from './gql'
+import { MUTATION_CREATEUSER, QUERY_LOGIN } from './gql'
 import './index.css'
 
 const initFieldRegisters = {
@@ -11,14 +11,32 @@ const initFieldRegisters = {
 const initFieldLogins = { username: '', password: '' }
 
 const Login = () => {
-  const [createUser] = useMutation(MUTATION_CREATEUSER)
+  const [createUser, { client }] = useMutation(MUTATION_CREATEUSER)
 
   const [fieldLogins, setFieldLogins] = useState(initFieldLogins)
   const [fieldRegisters, setFieldRegisters] = useState(initFieldRegisters)
 
   const handleLogin = useCallback(() => {
-    console.log(fieldLogins)
-  }, [fieldLogins])
+    const { username, password } = fieldLogins
+    if (!username) { return }
+    if (!password) { return }
+    client.query({
+      query: QUERY_LOGIN,
+      variables: { username, password }
+    })
+      .then(({ data: { login } }) => {
+        const { token, hasUsername } = login
+        if (!token) {
+          if (!hasUsername) { console.log('Tên người dùng không hợp lệ') }
+          else { console.log('mật khẩu không đúng') }
+        } else {
+          localStorage.setItem('tqcSocialToken', token)
+        }
+      })
+      .catch(errors => {
+        console.log(errors)
+      })
+  }, [fieldLogins, client])
 
   const handleRegister = useCallback(() => {
     if (
@@ -42,6 +60,7 @@ const Login = () => {
         .catch(error => { console.log(error) })
     }
   }, [fieldRegisters, createUser])
+
   return (
     <div className='login'>
       <div className='content'>
@@ -53,13 +72,13 @@ const Login = () => {
               <input
                 className='form-login-input form-login-usename'
                 placeholder='Tên người dùng'
-                onChange={value => setFieldLogins({ ...fieldLogins, username: value })}
+                onChange={event => setFieldLogins({ ...fieldLogins, username: event.target.value })}
                 value={fieldLogins.username}
               />
               <input
                 className='form-login-input form-login-password'
                 placeholder='Mật khẩu'
-                onChange={value => setFieldLogins({ ...fieldLogins, password: value })}
+                onChange={event => setFieldLogins({ ...fieldLogins, password: event.target.value })}
                 type='password'
                 value={fieldLogins.password}
               />

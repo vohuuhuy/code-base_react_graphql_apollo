@@ -2,7 +2,7 @@ import React from 'react'
 import Login from './login'
 import './index.css'
 
-function Page () {
+function PageDesktop () {
   return (
     <div className='page'>
       <Login />
@@ -10,4 +10,4 @@ function Page () {
   )
 }
 
-export default Page
+export default PageDesktop
