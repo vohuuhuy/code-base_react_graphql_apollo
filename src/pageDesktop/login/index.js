@@ -64,7 +64,7 @@ const Login = () => {
   return (
     <div className='login'>
       <div className='content'>
-        <Logo width={300} height={140} />
+        <Logo width={175} height={90} style={{ marginBottom: 20 }} />
         <div className='container'>
           <div className='login-area'>
             <div>

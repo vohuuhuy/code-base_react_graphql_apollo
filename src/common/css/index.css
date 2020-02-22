@@ -1,0 +1,19 @@
+@import './btn.css';
+@import './input.css';
+@import './label.css';
+
+.logo {
+  background-image: url('../../images/lg.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+*:focus {
+  outline: none;
+}
+
+.dash {
+  height: 1px;
+  width: 100%;
+  background: black;
+}

@@ -1,15 +1,17 @@
 import React from 'react'
-import './index.css'
+import '../common/css/index.css'
 
+// width = 1.93670886076 * height
 const Logo = (props) => {
-  const { width, height } = props
+  const { width, height, style } = props
   return (
     <div
       className='logo'
       alt=''
       style={{
         width,
-        height
+        height,
+        ...style
       }}
     />
   )

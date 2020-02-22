@@ -11,6 +11,7 @@ import { setContext } from 'apollo-link-context'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { checkTypeDevice } from './common'
 import PageDesktop from './pageDesktop'
+import PageMobile from './pageMobile'
 
 const httpLink = new HttpLink({
   uri: httpLinkUri
@@ -52,12 +53,13 @@ function App() {
   if (typeDevice === 'desktop') {
     return (
       <ApolloProvider client={client}>
-        <PageDesktop typeDevice={typeDevice} />
+        <PageDesktop />
       </ApolloProvider>
     )
   }
   return (
     <ApolloProvider client={client}>
+        <PageMobile />
     </ApolloProvider>
   )
 }
