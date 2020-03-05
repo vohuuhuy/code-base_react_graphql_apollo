@@ -19,6 +19,15 @@ function isMobile() {
 
 /* eslint-enable */
 
+export function movePageDidmount () {
+  const element = document.querySelector('.page-hide')
+  setTimeout(() => {
+    if (element) {
+      element.setAttribute('style', 'transform: translateX(0%);')
+    }
+  }, 200);
+}
+
 export const checkTypeDevice = () => {
   if (isMobile()) { return 'mobile' }
   if (isMobileTablet()) { return 'mobileTablet' }

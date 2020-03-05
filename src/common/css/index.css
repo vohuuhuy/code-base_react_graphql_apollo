@@ -1,6 +1,7 @@
 @import './btn.css';
 @import './input.css';
 @import './label.css';
+@import './page.css';
 
 .logo {
   background-image: url('../../images/lg.png');

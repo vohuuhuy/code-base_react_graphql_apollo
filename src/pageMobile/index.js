@@ -1,12 +1,23 @@
 import React from 'react'
-import Login from './login'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { routerMobile } from '../config'
 import './index.css'
 
-function PageMobile () {
+function PageMobile (props) {
   return (
-    <div className='page'>
-      <Login />
-    </div>
+    <Router>
+      <div className='page'>
+        <Switch>
+          {routerMobile.map((route, i) =>
+            <Route
+              key={i}
+              path={route.path}
+              render={propsRoute => <route.component { ...props } { ...propsRoute } routes={route.routes} />}
+            />
+          )}
+        </Switch>
+      </div>
+    </Router>
   )
 }
 

@@ -1,8 +1,10 @@
-.login {
+.login-mobile {
   height: 100%;
   width: 100%;
   box-sizing: border-box;
   padding-top: 50px;
+  transform: translateX(0);
+  transition: transform .2s;
 }
 .header-login {
   margin-bottom: 18px;

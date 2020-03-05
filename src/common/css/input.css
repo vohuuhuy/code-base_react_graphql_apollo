@@ -4,4 +4,10 @@ input {
   padding: 5px;
   font-size: 15px;
   box-sizing: border-box;
+  border: 1px solid darkgrey;
+}
+
+.input-required {
+  border: 1px solid red;
+  transition: border .5s;
 }

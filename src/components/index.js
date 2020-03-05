@@ -1,4 +1,5 @@
 import React from 'react'
+import { FormCreate } from './form'
 import '../common/css/index.css'
 
 // width = 1.93670886076 * height
@@ -24,5 +25,6 @@ const validateInput = (value, required = false) => {
 
 export {
   Logo,
-  validateInput
+  validateInput,
+  FormCreate,
 }
