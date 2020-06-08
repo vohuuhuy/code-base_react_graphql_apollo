@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { ApolloClient } from 'apollo-client'
 import { ApolloProvider } from '@apollo/react-hooks'
 import { HttpLink } from 'apollo-link-http'
@@ -9,9 +9,8 @@ import { getMainDefinition } from 'apollo-utilities'
 import { httpLinkUri, wsLinkUri } from './config'
 import { setContext } from 'apollo-link-context'
 import { InMemoryCache } from 'apollo-cache-inmemory'
-import { checkTypeDevice } from './common'
-import PageDesktop from './pageDesktop'
-import PageMobile from './pageMobile'
+import { Login } from './pages'
+import './common/css/index.css'
 
 const httpLink = new HttpLink({
   uri: httpLinkUri
@@ -49,17 +48,11 @@ const client = new ApolloClient({
 })
 
 function App() {
-  const [typeDevice] = useState(checkTypeDevice())
-  if (typeDevice === 'desktop') {
-    return (
-      <ApolloProvider client={client}>
-        <PageDesktop />
-      </ApolloProvider>
-    )
-  }
   return (
     <ApolloProvider client={client}>
-        <PageMobile />
+      <div className='page'>
+        <Login />
+      </div>
     </ApolloProvider>
   )
 }

@@ -25,13 +25,10 @@ const Login = () => {
       variables: { username, password }
     })
       .then(({ data: { login } }) => {
-        const { token, hasUsername } = login
-        if (!token) {
-          if (!hasUsername) { console.log('Tên người dùng không hợp lệ') }
-          else { console.log('mật khẩu không đúng') }
-        } else {
+        if (login) {
+          const { token } = login
           localStorage.setItem('tqcSocialToken', token)
-        }
+        } else console.log('dang nhap khong thanh cong')
       })
       .catch(errors => {
         console.log(errors)
