@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from 'react'
 import { useMutation } from '@apollo/react-hooks'
+import { useHistory } from 'react-router-dom'
 import { Logo, validateInput } from '../../components'
 import { MUTATION_CREATEUSER, QUERY_LOGIN } from './gql'
 import './index.css'
@@ -16,6 +17,8 @@ const Login = () => {
   const [fieldLogins, setFieldLogins] = useState(initFieldLogins)
   const [fieldRegisters, setFieldRegisters] = useState(initFieldRegisters)
 
+  const history = useHistory()
+
   const handleLogin = useCallback(() => {
     const { username, password } = fieldLogins
     if (!username) { return }
@@ -28,12 +31,13 @@ const Login = () => {
         if (login) {
           const { token } = login
           localStorage.setItem('tqcSocialToken', token)
+          history.push('/home')
         } else console.log('dang nhap khong thanh cong')
       })
       .catch(errors => {
         console.log(errors)
       })
-  }, [fieldLogins, client])
+  }, [fieldLogins, client, history])
 
   const handleRegister = useCallback(() => {
     if (

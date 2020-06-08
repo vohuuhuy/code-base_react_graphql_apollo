@@ -2,6 +2,7 @@
 @import './input.css';
 @import './label.css';
 @import './page.css';
+@import './checkbox.css';
 
 .logo {
   background-image: url('../../images/lg.png');

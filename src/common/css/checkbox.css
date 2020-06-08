@@ -1,0 +1,17 @@
+input[type="checkbox"] {
+  height: 16px;
+  width: 16px;
+}
+
+.checkbox-required:after {
+  font-size: 10px;
+  content: 'required';
+  position: relative;
+  left: 100%;
+  color: red;
+  padding: 5px;
+}
+
+.checkbox-required {
+  background-color: red;
+}
