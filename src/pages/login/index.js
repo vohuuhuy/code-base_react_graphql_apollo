@@ -17,7 +17,7 @@ const Login = () => {
     return { ...state, ...action }
   })
   const initState = useRef({
-    isLogin: true
+    mode: 'login'
   })
 
   const [state, setState] = useReducer(
@@ -125,36 +125,97 @@ const Login = () => {
       })
   }
 
-  const changeMode = boolean => {
-    setState({ isLogin: boolean })
+  const changeMode = mode => {
+    setState({ mode })
     form.resetFields()
   }
 
-  if (state.isLogin) {
+  if (state.mode === 'register') {
     return (
-      <div className='login'>
+      <div className='register'>
         <Form
           form={form}
           name='login'
         >
+          <Form.Item style={{ marginBottom: 0 }}>
+            <Form.Item
+              name='firstName'
+              rules={[{ required: true, message: 'Chưa nhập họ!' }]}
+              style={{ display: 'inline-block', width: 'calc(40% - 8px)' }}
+            >
+              <Input type='text' placeholder='Họ' />
+            </Form.Item>
+            <Form.Item
+              name='lastName'
+              rules={[{ required: true, message: 'Chưa nhập tên!' }]}
+              style={{ display: 'inline-block', width: 'calc(60%)', marginLeft: 8 }}
+            >
+              <Input type='text' placeholder='Tên' />
+            </Form.Item>
+          </Form.Item>
+          <Form.Item
+            name='email'
+            rules={[
+              { required: true, message: 'Chưa nhập email!' },
+              { type: 'email', message: 'Email không đúng định dạng!' }
+            ]}
+          >
+            <Input type='email' placeholder='Email' />
+          </Form.Item>
           <Form.Item
             name='userName'
             rules={[{ required: true, message: 'Chưa nhập tài khoản!' }]}
           >
-            <Input type='text' placeholder='Tài khoản' onPressEnter={verifyLogin} />
+            <Input type='text' placeholder='Tài khoản' />
           </Form.Item>
           <Form.Item
             name='password'
             rules={[{ required: true, message: 'Chưa nhập mật khẩu!' }]}
           >
-            <Input type='password' placeholder='Mật khẩu' onPressEnter={verifyLogin} />
+            <Input type='password' placeholder='Mật khẩu' />
           </Form.Item>
-          <Button onClick={verifyLogin} block>Đăng nhập</Button>
-          <Button type='link' style={{ paddingLeft: 0, marginTop: 7 }} onClick={() => changeMode(false)}>Tài khoản mới</Button>
+          <Form.Item
+            name='confirmPassword'
+            rules={[{ required: true, message: 'Chưa xác nhận mật khẩu!' }]}
+          >
+            <Input type='password' placeholder='Xác nhận mật khẩu' />
+          </Form.Item>
+          <Button onClick={verifyRegister} block>Đăng ký</Button>
+          <Button type='link' style={{ paddingLeft: 0, marginTop: 7 }} onClick={() => changeMode('login')}>Đăng nhập</Button>
         </Form>
       </div>
     )
   }
+
+  // if (state.mode === 'forget') {
+  //   return (
+  //     <div className='forget' style={{ width: 320 }}>
+  //       <Form
+  //         form={form}
+  //         name='login'
+  //       >
+  //         <Form.Item style={{ marginBottom: 0 }}>
+  //           <Form.Item
+  //             name='email'
+  //             rules={[
+  //               { required: true, message: 'Chưa nhập email!' },
+  //               { type: 'email', message: 'Email không đúng định dạng!' }
+  //             ]}
+  //             style={{ display: 'inline-block', width: 'calc(70% - 8px)' }}
+  //           >
+  //             <Input type='email' placeholder='Nhập email của bạn' onPressEnter={verifyLogin} />
+  //           </Form.Item>
+  //           <Form.Item
+  //             style={{ display: 'inline-block', width: 'calc(30%)', marginLeft: 8 }}
+  //           >
+  //             <Button type='primary'>Gửi</Button>
+  //           </Form.Item>
+  //         </Form.Item>
+  //         <Button type='link' style={{ paddingLeft: 0, marginTop: 7 }} onClick={() => changeMode('login')}>Đăng nhập</Button>
+  //       </Form>
+  //     </div>
+  //   )
+  // }
 
   return (
     <div className='login'>
@@ -162,51 +223,23 @@ const Login = () => {
         form={form}
         name='login'
       >
-        <Form.Item style={{ marginBottom: 0 }}>
-          <Form.Item
-            name='firstName'
-            rules={[{ required: true, message: 'Chưa nhập họ!' }]}
-            style={{ display: 'inline-block', width: 'calc(40% - 8px)' }}
-          >
-            <Input type='text' placeholder='Họ' />
-          </Form.Item>
-          <Form.Item
-            name='lastName'
-            rules={[{ required: true, message: 'Chưa nhập tên!' }]}
-            style={{ display: 'inline-block', width: 'calc(60%)', marginLeft: 8 }}
-          >
-            <Input type='text' placeholder='Tên' />
-          </Form.Item>
-        </Form.Item>
-        <Form.Item
-          name='email'
-          rules={[
-            { required: true, message: 'Chưa nhập email!' },
-            { type: 'email', message: 'Email không đúng định dạng!' }
-          ]}
-        >
-          <Input type='email' placeholder='Email' />
-        </Form.Item>
         <Form.Item
           name='userName'
           rules={[{ required: true, message: 'Chưa nhập tài khoản!' }]}
         >
-          <Input type='text' placeholder='Tài khoản' />
+          <Input type='text' placeholder='Tài khoản' onPressEnter={verifyLogin} />
         </Form.Item>
         <Form.Item
           name='password'
           rules={[{ required: true, message: 'Chưa nhập mật khẩu!' }]}
         >
-          <Input type='password' placeholder='Mật khẩu' />
+          <Input type='password' placeholder='Mật khẩu' onPressEnter={verifyLogin} />
         </Form.Item>
-        <Form.Item
-          name='confirmPassword'
-          rules={[{ required: true, message: 'Chưa xác nhận mật khẩu!' }]}
-        >
-          <Input type='password' placeholder='Xác nhận mật khẩu' />
-        </Form.Item>
-        <Button onClick={verifyRegister} block>Đăng ký</Button>
-        <Button type='link' style={{ paddingLeft: 0, marginTop: 7 }} onClick={() => changeMode(true)}>Đăng nhập</Button>
+        <Button onClick={verifyLogin} block>Đăng nhập</Button>
+        <div style={{ marginTop: 7, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <Button type='link' style={{ paddingLeft: 0 }} onClick={() => changeMode('register')}>Tài khoản mới</Button>
+          {/* <Button type='link' style={{ paddingLeft: 0 }} onClick={() => changeMode('forget')}>Quên mật khẩu</Button> */}
+        </div>
       </Form>
     </div>
   )

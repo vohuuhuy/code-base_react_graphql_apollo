@@ -8,4 +8,69 @@
   top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
+  overflow-x: hidden;
+
+  animation-name: slowlyShowLogin;
+  animation-duration: 1.5s;
+}
+
+.register {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 290px;
+  height: 50%;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  overflow-x: hidden;
+
+  animation-name: slowlyShowRegister;
+  animation-duration: 1.5s;
+}
+
+.forget {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 290px;
+  height: 50%;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  overflow-x: hidden;
+
+  animation-name: slowlyShowForget;
+  animation-duration: 1.5s;
+}
+
+@keyframes slowlyShowLogin {
+  from {
+    opacity: 0;
+    top: 0;
+  }
+  to {
+    opacity: 1;
+    top: 40%;
+  }
+}
+
+@keyframes slowlyShowRegister {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slowlyShowForget {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
