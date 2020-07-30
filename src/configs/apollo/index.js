@@ -31,7 +31,13 @@ const authLink = setContext((_, { headers }) => {
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors) {
-    graphQLErrors.forEach(({ message, locations, path }) => console.log(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`))
+    graphQLErrors.forEach(({ message, locations, path }) => {
+      console.log(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`)
+      if (message.includes('authentication failed')) {
+        localStorage.removeItem('authorization')
+        window.location.reload()
+      }
+    })
   }
   if (networkError) console.log(`[Network error]: ${networkError}`)
 })
@@ -49,6 +55,6 @@ const link = split(
 )
 
 export const Client = new ApolloClient({
-  link: authLink.concat(ApolloLink.from([link, errorLink])),
+  link: authLink.concat(ApolloLink.from([errorLink, link])),
   cache: new InMemoryCache()
 })

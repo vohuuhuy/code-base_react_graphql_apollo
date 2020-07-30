@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "checkJs": false,
+    "baseUrl": "src",
+    "paths": {
+      "@configs": ["./configs/index"],
+      "@pages": ["./pages/index"],
+      "@configs/*": ["./configs/*"],
+      "@pages/*": ["./pages/*"]
+    }
+  },
+  "exclude": [
+    "node_modules", "public"
+  ],
+  "include": [
+    "src"
+  ]
+}
