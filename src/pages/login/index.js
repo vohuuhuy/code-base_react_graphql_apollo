@@ -132,7 +132,7 @@ const Login = () => {
 
   if (state.mode === 'register') {
     return (
-      <div className='register'>
+      <div className='login register-animation'>
         <Form
           form={form}
           name='login'
@@ -189,7 +189,7 @@ const Login = () => {
 
   // if (state.mode === 'forget') {
   //   return (
-  //     <div className='forget' style={{ width: 320 }}>
+  //     <div className='login forget-animation' style={{ width: 320 }}>
   //       <Form
   //         form={form}
   //         name='login'
@@ -218,7 +218,7 @@ const Login = () => {
   // }
 
   return (
-    <div className='login'>
+    <div className='login login-animation'>
       <Form
         form={form}
         name='login'

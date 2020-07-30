@@ -4,20 +4,15 @@ body {
   height: 100vh;
   width: 100vw;
 }
-.page {
-  width: 100vw;
-  height: 100vh;
+.app {
+  background-image: url(bg.png);
+  background-size: auto;
+  background-position: center;
+  width: 100%;
+  height: 100%;
   overflow-x: hidden;
-  overflow-y: hidden;
-  position: relative;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }
-.page-hide {
-  transform: translateX(100%);
-  transition: transform .2s;
-}
+
 .react-notification-root {
   overflow-y: hidden !important;
 }
