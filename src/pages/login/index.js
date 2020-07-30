@@ -141,13 +141,13 @@ const Login = () => {
             name='userName'
             rules={[{ required: true, message: 'Chưa nhập tài khoản!' }]}
           >
-            <Input type='text' placeholder='Tài khoản' />
+            <Input type='text' placeholder='Tài khoản' onPressEnter={verifyLogin} />
           </Form.Item>
           <Form.Item
             name='password'
             rules={[{ required: true, message: 'Chưa nhập mật khẩu!' }]}
           >
-            <Input type='password' placeholder='Mật khẩu' />
+            <Input type='password' placeholder='Mật khẩu' onPressEnter={verifyLogin} />
           </Form.Item>
           <Button onClick={verifyLogin} block>Đăng nhập</Button>
           <Button type='link' style={{ paddingLeft: 0, marginTop: 7 }} onClick={() => changeMode(false)}>Tài khoản mới</Button>
