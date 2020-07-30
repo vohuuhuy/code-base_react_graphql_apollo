@@ -68,6 +68,9 @@ const Login = () => {
             processingRef.current = false
           })
       })
+      .catch(() => {
+        processingRef.current = false
+      })
   }
 
   const verifyRegister = () => {
