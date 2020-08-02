@@ -50,7 +50,7 @@ const Login = () => {
               type: 'success',
             })
             if (login.authorization) {
-              contextApp.login()
+              contextApp.login(login.authorization)
             }
             processingRef.current = false
           })

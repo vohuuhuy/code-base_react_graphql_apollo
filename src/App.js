@@ -32,8 +32,8 @@ function App() {
     else setContext({ isAuthen: false })
   }
 
-  const login = () => {
-    localStorage.setItem('authorization', login.authorization)
+  const login = authorization => {
+    localStorage.setItem('authorization', authorization)
     setAuthen()
   }
 
