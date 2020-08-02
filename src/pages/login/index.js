@@ -1,8 +1,9 @@
 import React, { useRef, useReducer, useContext } from 'react'
 import { Input, Form, Button } from 'antd'
 import { useMutation } from '@apollo/react-hooks'
-import { MUTATION_LOGIN, MUTATION_REGISTER } from './gql'
 import { store } from 'react-notifications-component'
+import * as CryptoJS from 'crypto-js'
+import { MUTATION_LOGIN, MUTATION_REGISTER } from './gql'
 import { notification } from '../../common/notification'
 import { ContextApp } from 'tools'
 
@@ -35,9 +36,12 @@ const Login = () => {
     if (processingRef.current) return
     processingRef.current = true
     form.validateFields()
-      .then(values => {
+      .then(async (values) => {
         verifyLoginMutation({
-          variables: values
+          variables: {
+            ...values,
+            password: CryptoJS.SHA256(values.password).toString()
+          }
         })
           .then(({ data: { login } }) => {
             store.addNotification({
@@ -99,7 +103,7 @@ const Login = () => {
                 message: 'Đăng ký thành công!',
                 type: 'success',
               })
-              setState({ isLogin: true })
+              changeMode('login')
               form.setFields([
                 { name: 'userName', value: register?.userName },
                 { name: 'password', value: '' }
