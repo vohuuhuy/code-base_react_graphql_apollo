@@ -20,7 +20,7 @@ const subscriptionClient = new SubscriptionClient(wsLinkUri, { reconnect: true }
 const wsLink = new WebSocketLink(subscriptionClient)
 
 const authLink = setContext((_, { headers }) => {
-  const token = localStorage.getItem('tqcSocialToken');
+  const token = localStorage.getItem('authorization');
   return {
     headers: {
       ...headers,
